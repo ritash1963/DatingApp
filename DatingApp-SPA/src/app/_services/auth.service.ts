@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   baseUrl = 'http://localhost:5000/api/auth/';
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
+
 constructor(private http: HttpClient) { }
 
   login(model: any) {
@@ -15,6 +20,8 @@ constructor(private http: HttpClient) { }
             const user = response;
             if (user) {
               localStorage.setItem('token', user.token);
+              this.decodedToken = this.jwtHelper.decodeToken(user.token);
+              console.log(this.decodedToken);
             }
           })
         );
@@ -22,5 +29,10 @@ constructor(private http: HttpClient) { }
 
   register(model: any) {
     return this.http.post(this.baseUrl + 'resister', model);
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 }
