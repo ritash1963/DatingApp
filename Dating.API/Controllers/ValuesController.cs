@@ -40,18 +40,21 @@ namespace DatingApp.API.Controllers
         }
 
         // POST api/values
+        [AllowAnonymous]
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
         // PUT api/values/5
+        [AllowAnonymous]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/values/5
+        [AllowAnonymous]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
