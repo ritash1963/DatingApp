@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Http;
 using Dating.API.Helpers;
 
 
-namespace DatingApp.API
+namespace Dating.API
 {
     public class Startup
     {
